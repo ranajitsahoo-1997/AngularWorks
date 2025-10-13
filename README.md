@@ -1,2 +1,21 @@
 # AngularWorks
 This is only for learning
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+      angular.module("sample", []);
+    </script>
+  </head>
+  <body ng-app="sample">
+    Sum of 1 and 3 is {{1+2}}
+  </body>
+</html>
+
+```
