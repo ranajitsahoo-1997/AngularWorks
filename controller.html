@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+      var greet = angular.module("greet", []);
+      greet.controller("emp", function () {
+        (this.fName = "Ranajit"), (this.lName = "Sahoo");
+      });
+
+      greet.controller("msg", function () {
+        this.content = "Why are you here? ";
+      });
+    </script>
+    <title>Document</title>
+  </head>
+  <body ng-app="greet">
+    <div>
+      <div ng-controller="emp as e">
+        Hello {{e.fName}} {{e.lName}}, Good evening!!
+      </div>
+    </div>
+
+    <div>
+      <div ng-controller="msg as m">You know! {{m.content}}</div>
+    </div>
+  </body>
+</html>
