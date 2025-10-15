@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+        const app = angular.module("anything",[])
+        app.controller("per",function ($scope) {
+            $scope.NAME="Ranajit Sahoo"
+            $scope.SALARY = 100000
+            $scope.EXP = "1.5"
+        })
+
+    </script>
+
+</head>
+<body ng-app="anything">
+    <pre ng-controller="per">
+        Hey, {{NAME}}!! Nice to meet you 
+        Your Salary is being increased by {{SALARY}} from next month. 
+        You have successfully completed {{EXP}} year(s) in our company.
+        Thank you so much being a part of our company.
+    </pre>
+    
+</body>
+</html>

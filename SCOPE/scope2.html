@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scope 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+      const app = angular.module("anything", []);
+    //   the below code used in production label 
+      app.controller("per", [
+        "$scope",
+        function (c) {
+          c.NAME = "Ranajit Sahoo";
+          c.SALARY = 100000;
+          c.EXP = "1.5";
+          c.getAnnualSal = function(){
+            return (this.SALARY)*12;
+          }
+        },
+      ]);
+
+      app.controller("contact",["$scope",function($scope){
+        $scope.phone = "+91-7751000644"
+        $scope.city = "Bangalore"
+        $scope.country = "India"
+        $scope.comp = "Redintegro"
+        $scope.getDetails= function(ph,cc,ct,cp) {
+            return `Your Company Address is ${cp}, ${ct}, ${cc} and phone number is ${ph}`
+        }
+      }])
+    </script>
+  </head>
+  <body ng-app="anything">
+    <pre ng-controller="per">
+        Hey, {{NAME}}!! Nice to meet you 
+        Your Salary is being increased by {{SALARY}} from next month. 
+        You have successfully completed {{EXP}} year(s) in our company.
+        Thank you so much being a part of our company.
+        So now onwrads your salary package will be {{getAnnualSal()}} per Annum.
+    </pre>
+    <div ng-controller="contact">
+        <h1>Contact</h1>
+        <div>
+            {{getDetails(phone,comp,country,city)}}
+        </div>
+    </div>
+  </body>
+</html>

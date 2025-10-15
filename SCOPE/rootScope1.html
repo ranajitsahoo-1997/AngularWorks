@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Scope</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("sample",[])
+
+        app.controller("dept1",["$scope","$rootScope", function($scope,$rootScope){
+            $rootScope.CollegeName = "Atria University"
+            $rootScope.code = "AT25"
+            $scope.deptCode = `${$rootScope.code}-MCA034`
+            $scope.dName = "MCA"
+            $scope.Capacity = 50
+            $scope.present = 30
+        }])
+        app.controller("dept2",["$scope","$rootScope", function($scope,$rootScope){
+            $rootScope.CollegeName = "Atria University"
+            $rootScope.code = "AT25"
+            $scope.deptCode = `${$rootScope.code}-BCA309`
+            $scope.dName = "BCA"
+            $scope.Capacity = 45
+            $scope.present = 37
+        }])
+        app.controller("std1",["$scope","$rootScope", function($scope,$rootScope){
+            $scope.regdNo = `${$rootScope.code}-${$scope.dName}-STD1889`
+            $scope.sName = "Ranajit Sahoo"
+            $scope.DOB = '17/05/1997'
+            $scope.bestTopic = 'Python'
+        }])
+        app.controller("std2",["$scope","$rootScope", function($scope,$rootScope){
+            $scope.regdNo = `${$rootScope.code}-${$scope.dName}-STD1459`
+            $scope.sName = "Raja Sahoo"
+            $scope.DOB = '17/06/1997'
+            $scope.bestTopic = 'Angular'
+        }])
+
+    </script>
+
+</head>
+<body ng-app="sample">
+    <h4 style="display: inline;">We have two two departments in <h1 style="display: inline;">{{CollegeName}}</h1></h4>
+
+    <div ng-controller="dept1" style="margin: 10px; background-color: aliceblue; padding: 10px;">
+        <p>department Code: {{deptCode}}</p>
+        <p>department Name: {{dName}}</p>
+        <p>Student Capacity: {{Capacity}}</p>
+        <p>Present Today: {{present}}</p>
+        <div ng-controller="std1">
+            Out of them in Today's Quiz {{sName}} secure good marks <br>
+            <strong>Student {{sName}} details of department {{dName}} of {{CollegeName}}</strong><br>
+            <pre>
+    <strong>RegistrationNumber:  </strong> {{regdNo}}
+    <strong>Full Name:           </strong> {{sName}}
+    <strong>DateOfBirth:         </strong> {{DOB}}
+    <strong>Choosen Topic:       </strong> {{bestTopic}}
+            </pre>
+        </div>
+    </div>
+   
+    <div ng-controller="dept2" style="margin: 10px; background-color: bisque; padding: 10px;">
+        <p>department Code: {{deptCode}}</p>
+        <p>department Name: {{dName}}</p>
+        <p>Student Capacity: {{Capacity}}</p>
+        <p>Present Today: {{present}}</p>
+        <div ng-controller="std2">
+            Out of them in Today's Quiz {{sName}} secure good marks <br>
+            <strong>Student {{sName}} details of department {{dName}} of {{CollegeName}}</strong><br>
+            <pre>
+    <strong>RegistrationNumber:  </strong> {{regdNo}}
+    <strong>Full Name:           </strong> {{sName}}
+    <strong>DateOfBirth:         </strong> {{DOB}}
+    <strong>Choosen Topic:       </strong> {{bestTopic}}
+            </pre>
+        </div>
+    </div>
+
+    
+</body>
+</html>

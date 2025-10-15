@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scope Inheritance</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript">
+      const app = angular.module("anything", []);
+      //   the below code used in production label
+      app.controller("per", [
+        "$scope",
+        function (c) {
+          c.NAME = "Ranajit Sahoo";
+          c.SALARY = 100000;
+          c.EXP = "1.5";
+          c.getAnnualSal = function () {
+            return this.SALARY * 12;
+          };
+        },
+      ]);
+
+      app.controller("person-details", [
+        "$scope",
+        function ($scope) {
+          $scope.getDetails = function (sal, exp, annual) {
+            return ` Nice to meet you 
+        Your Salary is being increased by ${sal} from next month. 
+        You have successfully completed ${exp} year(s) in our company.
+        Thank you so much being a part of our company.
+        So now onwrads your salary package will be ${annual} per Annum.`;
+          };
+        },
+      ]);
+
+      app.controller("emp-pay", [
+        "$scope",
+        function ($scope) {
+          $scope.getTax = function () {
+            return ($scope.SALARY * 30) / 100;
+          };
+          $scope.getNet = function () {
+            return $scope.SALARY - $scope.getTax();
+          };
+        },
+      ]);
+    </script>
+  </head>
+  <body ng-app="anything">
+    <pre ng-controller="per">
+        hi Good evening Mr/ms {{NAME}}
+        <div ng-controller="person-details">
+            <i>Salary Increase for you from 60,000 to {{SALARY}}</i>
+        
+        <div>{{getDetails(SALARY,EXP,getAnnualSal())}}</div>
+        <div ng-controller="emp-pay">
+            After you tax {{getTax()}} deducted, your net salary will be {{getNet()}}
+        </div>
+        </div>
+        
+    </pre>
+  </body>
+</html>
