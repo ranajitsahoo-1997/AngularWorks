@@ -7,7 +7,8 @@
     <script type="text/javascript">
       var greet = angular.module("greet", []);
       greet.controller("emp", function () {
-        (this.fName = "Ranajit"), (this.lName = "Sahoo");
+        this.fName = "Ranajit";
+        this.lName = "Sahoo";
       });
 
       greet.controller("msg", function () {

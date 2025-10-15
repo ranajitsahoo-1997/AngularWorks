@@ -45,4 +45,4 @@ in the body tag, we have **ng-app** attribute which is takes angular module refe
     Sum of 1 and 3 is {{1+2}}
   </body>
 ```
-if we will notice in body tag **ng-app="sample"** the name of the ng-app and the module which we have already created above both are same, so the ng-app is able to instantiate the module for our application
+if we will notice in body tag **ng-app="sample"** the name of the *ng-app* and the module which we have already created above both are same, so the ng-app is able to instantiate the module for our application
