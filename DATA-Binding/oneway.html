@@ -1,0 +1,39 @@
+<!-- 
+ONE-WAY-Data-Binding
+---------------------
+view/markup<----<----<----<----controller/scope
+
+- In One way data binding data flows from SCOPE to VIEW
+- Scope data always propogated to View
+- Any data modification in Scopde Data that will be immediately reflected in View.
+- In View data any changes that will be never propogated (back to Scope) to SCOPE data.
+- One way binding always performs through "ng-bind" or evaulation expression.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Way Data Binding</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script type="text/javascript"src="oneway.js" >
+       
+    </script>
+
+</head>
+<body ng-app="app">
+    <div ng-controller="call">
+        <div>
+            <p>In normal way</p>
+            value of A is {{a}} <br>
+            value of B is {{b}} <br>
+            <hr>
+            <p>In One way binding</p>
+            value of a is <span ng-bind="a">Any thing you will put here it will not be visible in the UI</span> <br/>
+            value of b is <span ng-bind="b">Any thing you will put here it will not be visible in the UI</span> <br/>
+        </div>
+    </div>
+</body>
+</html>
