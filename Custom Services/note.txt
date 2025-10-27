@@ -1,0 +1,112 @@
+
+
+
+Angular JS Services
+-------------------
+
+- Service is a special unit of Code which can used across different controller.
+We can think like service is nothing but a business logic or utilies code or webservices.
+- we should not write our business code in our controllers, controllers only used to provide data to views and viceversa.
+- So service helps us to write business code or any utilities code inside it and then we can use that service more than one controllers.
+
+- Service is a singleton i.e. only one instance of the service can be created and the same instance is used to serve through out the AngularJS application.
+So Services are static in nature and Controllers are dynamic.
+
+- Services are loaded and initialized lazily
+i.e. services are not initialized when the angular js application started but the controllers are started.
+Services is initialized only when a controller refer to the respective service if it is not instanciated before, otherwise controller will use the same refernce object of the service.
+
+- we can have multiple services for one module and can be used by multiple controllers.
+
+-Services can interact with each other. i.e service-1 can share its code to 
+service-2 and viceversa. share means we can call a service in another service.
+
+Types of services
+-----------------
+1. Built-in Services
+    - It is a part of Angular framework.
+    -Ex: $http, $log, $location etc.
+
+2. Custom Services
+    - It is developed by us.
+    - It Clould be extensions to Built-in services
+    - It Could be business logic service.
+
+Business Services
+-----------------
+- It is nothing but a Custom services.
+                                                                                                             |---------controller1<--model Data----|_______
+* database                                               |----------------->EmployeeBusinessService<---------|                                     |_______|>View1
+    |<-------------->webservice<----------http calls-----|                                                   |
+                                                         |----------------->CustomerBusinessService<---------|
+                                                                                                             |---------controllerN<--model Data------------>View-N
+
+Developing Custom services
+--------------------------
+Services can be created in three ways as follows:
+
+1. Factory
+-----------
+    Example:-
+        var app = angular.module("app", [])
+        app.controller("emp",["$scope", function($scope, calcFactory){
+            ...
+            calcFactory.doSum(); // in Controller calcFactory object is using doSum()
+            ...
+        }]);
+        app.factory('calcFactory',[function(){
+            var oCalcService = {}; //create service(js) object
+            oCalcService.doSum = function(){ object is including doSum function
+                ...
+            };
+            return oCalcService; // Return the object
+        }])
+
+
+2. Service
+----------
+    Example:-
+        var app = angular.module("app", [])
+        app.controller("emp",["$scope", function($scope, calcService){
+            ...
+            calcService.doSum(); // in Controller calcservice object is using doSum()
+            ...
+        }]);
+        app.service('calcService',[function(){
+            this.doSum = function()
+                            { object is including doSum function
+                                ...
+                            };
+            
+        }])
+        ** service object is instantiated automatically by angular js
+
+3. Provider
+-----------
+    Example:-
+        var app = angular.module("app", [])
+        app.controller("emp",["$scope", function($scope, calcService){
+            ...
+            calcService.doSum(); // in Controller calcservice object is using doSum()
+            ...
+        }]);
+        
+        app.provider('calService', function(){
+            
+            var baseUrl = '';
+            this.config = function(url){
+                baseUrl = url;
+            }
+            this.$get = function(){
+                var oCalcService = {}
+                oCalcService.doSum = function(){..};
+                return oCalcService;
+            };
+
+        });
+
+        app.config(["calcServiceProvider",function(calcServiceProvider){
+            calcServiceProvider.config('http://localhost:3001')
+        }]);
+        **Note- This configuration registered before the controller and services.
+
