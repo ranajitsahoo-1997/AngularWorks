@@ -1,0 +1,36 @@
+ng-if
+-----
+It is used to make DOM Element rendered or removed based on a condition
+
+Example:-
+    <span ng-if="sal>7000" >...</span>
+
+- It will be completely removed from DOM (and not just show/hide using css)
+    * All related events/subscriptions will also be removed
+- It creates a scope for itself
+- It Evaluates expression based on the scope
+
+ng-show and ng-hide
+-------------------
+- It shows or hide a DOM element based on a condition
+Example:
+    <span ng-show="sal>7000" >...</span>
+- It will not completely removed from DOM (and not just show/hide using css)
+    *All related events/subscriptions will be still maintained
+    *It Shows/Hides using css
+-No Scope created for itself
+- Evaluates expression based on the parent scope
+
+ng-repeat
+---------
+- It is kind of loop which iterate all items in a collection (in Scope)
+Example:
+    <table>
+        <tr ng-repeat="e in employees">
+            <td>{{e.name}}</td>
+            <td>{{e.age}}</td>
+
+        </tr>
+    </table>
+
+- It creates a scope for each instantiated template item(<tr></tr>)

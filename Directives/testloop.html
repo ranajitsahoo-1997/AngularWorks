@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Employees</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script src="./testloop.js"></script>
+  </head>
+  <body>
+    <div ng-controller="emp" class="container">
+      <button ng-click="allEmployees()">showAllEmployees</button>
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Dept</th>
+      <th scope="col">Date of joining</th>
+      <th scope="col">salary</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="e in employees" >
+      <th scope="row">{{e.id}}</th>
+      <td>
+        <span ng-if="e.dept==='HR'" class="text-warning">{{e.name}}</span>
+        <span ng-if="e.sal>110000">Sir. {{e.name}}</span>
+        
+      </td>
+      <td>{{e.dept}}</td>
+      <td>{{e.DOJ}}</td>
+      <td>
+        <span ng-show="e.sal>120000 && e.sal<200000" class="text-primary">{{e.sal}}</span>
+        <span ng-hide="e.sal>120000 && e.sal<200000" class="text-danger">{{e.sal}}</span>
+
+        
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

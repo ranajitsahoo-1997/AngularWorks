@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script src="./apicall.js"></script>
+    <title>Document</title>
+</head>
+<body  ng-app="empModule">
+    <div ng-controller="emp">
+        <label for="xxx">Employee ID:</label>
+        <input type="text" ng-model="searchId" placeholder="e.g 1001"/>
+        <button type="button" ng-click="searchEmployee()">search</button>
+        <hr>
+        Employee Name: {{empName}} <br>
+
+        Employee Dept: {{deptName}} <br>
+        Date Of Join : {{doj}}
+
+
+    </div>
+    
+</body>
+</html>
