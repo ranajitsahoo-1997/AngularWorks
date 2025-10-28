@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Search</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    <script src="./test.js"></script>
+  </head>
+  <body>
+    <div ng-controller="emp">
+      <h2>Search Employee</h2>
+
+      <label>Employee ID:</label>
+      <input
+        class="input"
+        type="text"
+        ng-model="searchEmpId"
+        placeholder="Enter Employee ID"
+      />
+
+      <button class="btn btn-primary" ng-click="doSearch()">Search</button>
+
+      <hr />
+      <div class="row mb-3">
+        <div class="col-sm-2">Employee ID</div>
+        <div class="col-sm-2">{{eId}}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-1 bg-primary rounded text-white position-relative">Employee Name
+          <!-- * ng-if="sal>120000" -->
+          <span ng-show="dName==='HR'"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >
+            Good Morning {{dName}}
+          </span>
+        </div>
+        <div class="col-sm-1"></div>
+        <!-- * using filters in templates -->
+        <div class="col-sm-2">{{eName| uppercase}}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-2">Department
+
+        </div>
+        <div class="col-sm-2">{{dName}}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-2">
+          <span ng-if="isHr" class="fw-bold">Date Of Joining</span>
+          <span ng-if="!isHr" class="">Date Of Joining</span>
+
+          </div>
+        <div class="col-sm-2">{{doj | date: 'longDate'}}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-1 position-relative bg-success rounded">
+          Salary
+          <!-- * ng-if="sal>120000" -->
+          <span ng-if="sal>120000"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >
+            Super
+          </span>
+          <span ng-hide="sal==undefined || sal>120000"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >
+            New join
+          </span>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">{{sal}}</div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -9,7 +9,7 @@ if (!Object.hasOwn) {
 
 // Sample data
 let emps = [
-  { id: 1001, name: "Ranajit",dept: "HR",DOJ: "1/04/2023",sal: 100000 },
+  { id: 1001, name: "Ranajit",dept: "HR",DOJ: "2004-04-01T08:34:46.000Z",sal: 100000 },
   { id: 1002, name: "Raja",dept: "Test",DOJ: "17/09/2020",sal: 150000 },
   { id: 1003, name: "Pradeep",dept: "Accounts",DOJ: "10/12/2016" ,sal: 200000}
 ];

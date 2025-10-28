@@ -1,0 +1,25 @@
+Filters
+-------
+
+-Any Angular js Filters usually takes format input and respond back format of output
+
+- it can be used to:
+    - Format data
+    - Transform Data
+    - Search/filter data
+
+- It can not only be used in templates(views), we can used in controllers and services
+Types of Filters
+----------------
+we can have built-in filters provided with Angularjs as well as our own custom filters
+- Built-in filters are like 
+number,
+date,
+filter,
+uppercase,
+lowercase,
+currency,
+json,
+limitTo,
+orderBy,
+- custom filters are developed by us.
