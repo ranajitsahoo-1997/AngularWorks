@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+    
+    <script src="./dir.js"></script>
+    <title>Custom Directives</title>
+</head>
+<body ng-app="app">
+    <script type="text/ng-template" id="my-ifo-msg2.html">
+        <strong>{{msg2}}</strong>
+    </script>
+    <div ng-controller="emp">
+        This is Custom Directives
+        <!-- * first way of calling component directive -->
+        <div my-info-msg></div>
+        <!-- * Second way of calling componet directive -->
+        <div my-info-msg2></div>
+        <!-- * Third way of calling component directive -->
+        <div my-info-msg3></div>
+        <my-info-msg></my-info-msg>
+
+
+
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>

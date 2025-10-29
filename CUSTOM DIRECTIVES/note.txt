@@ -1,0 +1,127 @@
+We have already familar with some of the angular built-in directives like ng-app,ng-controller, ng-model,ng-if...and so on.
+Yes, we can create our own directives
+There are three types of directives as follows
+
+1.Components
+------------
+    when we are creating a custom component/element which is its own HTML template.
+2.Decorators
+------------
+    the directive which enhance the existing functionality of an existing directives
+    Ex:- ng-click,ng-hide ..etc
+3.Templating
+------------
+    this directive which manipulate with DOM a bit
+    Ex: ng-repeat
+
+ng-class directive is used to add condition for your classes 
+
+The first step of processing/execution a directive for rendering.
+Ex:
+    <div ng-controller="msg">
+        <div message text="first">
+        ...
+        </div>
+    </div>
+Compiles
+--------
+It Loads and traverse the DOM(of Template)
+    - Compiles each of the directives collected thereafter (ex: nested directives)
+It happens for bothexisting Angular Directives or Custom Directives
+"compile" function: executes code during compilation phase of a template. 
+Link
+----
+The next phase after Compile carried out in various steps
+It works on a instance of a Template (previously "compiled")
+Ex:
+    <div ng-controller="msg">
+        <div message text="first">
+        ...
+        </div>
+    </div>
+    In the above example angular js did not work directily to the directives templates during the linking process.
+    Instead of directly using the templates it actually creates an instance of that template and the linking phase will be working on this instance
+
+In Linking process we have 3 major steps
+-Controller (of directive)
+-pre
+-post (aka. "Link")
+
+workflow of compile & link
+--------------------------
+<div ng-controller="msg">
+    <div message text="first">--|
+    ...                         |  Template
+    </div>                    --|
+</div>
+compile Process:-
+---------------
+    - Loads and traverse Template DOM
+    - Compilation will be done only once for that template
+    - The compilation process returns a link function
+                                        -------------
+        *Or Object(containing pre, post (or link) etc.)
+    - There is no scope as the part of compilation process.
+    - In this process no instance/clones of template created yet.
+    - Any operation like chnaging color of template etc which can be shared among all 
+      instance/clones of template
+    - we can manipulate with DOM of template
+    - However, we cannot play with data/events of clones.
+    - No DOM of instance available
+
+**After compilation process an instance of the template will be created by angular js
+    <div message text="first">--|
+    ...                         |  Template instance
+    </div>                    --|
+
+1. controller phase (controller of directive):-
+-----------------------
+    - The controller of the directive will be kicking in for every instance of the directive template
+    - This the first step controller to execute for every instance/clone of template.
+    - controller will create the scope for the template instance which will help us to manipulate data for template instance.
+    - Not recommended to access instance DOM
+
+2. Pre-Link phase:-
+------------------
+    - Pre-Link phase executes immediately after controller phase (for every instance)
+    - So that refernce to the DOM template instance is available.
+    - Scope is still available to the prelink phase but not 100%, instance is not linked to scope yet (no bindings are setup).
+    - Scope can be manipulated safe to set data and even child data.
+    - However it is not safe to manipulate DOM,template instance and no access to child elements
+
+3. Post-Link phase:-
+-------------------
+    - The last phase of every instance template usually called "linking" or "link function" which will be processed after prelink phase.
+    - It has full-fledged availability of the Scope and DOM template instance.
+    - Child directives/elements are ready for the this phase.
+    - Here Scope can be manipulated and 
+      here it is safe to attach any event handler and 
+      inspect child elements and safe to manipulate with DOM template instance.
+    - However, it is not at all safe to set data for child elements.
+      If you really want to set the data for the child elements "Pre-Link" is best phase to set the data.
+
+**After th post-link phase the directive template will render
+
+Nested Directives
+-----------------
+<div message text="first"> 1. compile for outer most directive 4.controller 5. Pre-Link 12. Post-Link
+    <div message text="first"> 2. compile for next inner most directive 6. controller 7. Pre-Link 11.Post-Link
+        <div message text="first"> 3. then compile for the last inner most directive 8.controller 9. Pre-Link 10.Post-Link
+        ...
+        </div>
+    </div>
+</div>
+
+** when we have nested directives inside the code angular js will first compile the outer-most directive then
+it check for any child directive if present then it will compile that also and again it check for the child directive inside it if present then it will compile that also.
+for the last child directive if no child directive found it will come back to the outer most directive.
+so now we have three directive as mentioned in the example:
+    [1] outer-most directive
+     |->   [2] inner child directive
+        |->    [3] inner-most child directive
+After compilation done as we know each compilation returns a link function
+so first [1] directive will excecute for controller and then pre-link phase will be execute then same for the [2] and [3]
+then it will not coma back again  to the top of the ladder, first Post-link phase will be executer for the [3] then [2] and then [1].
+finally, they will go for render.
+
+

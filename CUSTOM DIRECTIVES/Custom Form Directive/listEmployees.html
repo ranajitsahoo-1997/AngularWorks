@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div >
+    <div class="panel-heading">
+        <h4 ng-class="(e.dept==='HR')?'bg-info':'bg-warning'">{{e.name}} Details</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4"><strong>Employee No:</strong></div>
+            <div class="col-sm-8">{{e.id}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Name:</strong></div>
+            <div class="col-sm-8">{{e.name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Department:</strong></div>
+            <div class="col-sm-8">{{e.dept}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Date Of Join:</strong></div>
+            <div class="col-sm-8">{{e.DOJ|date: "longDate"}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>Date Of Join:</strong></div>
+            <div class="col-sm-8">{{e.sal|currency: "INR "}}</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
