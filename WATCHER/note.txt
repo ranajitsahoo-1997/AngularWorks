@@ -1,0 +1,145 @@
+Watch
+-------
+- It is nothing but keeping track of (or watching) scope varibales and the changes of their values.
+- it tracks of a varibales and its value.
+- So for each scope variable WATCH will be created implicitly by the Angular JS
+  which are being used in the data-binding in the template .
+- Some variables may not be watched.
+- Example:
+    <div ng-controller="X">
+        <input ng-model="a"/>----------------------|----->watch-a:10
+        <div>{{b}}</div>------------------------|--|----->watch-b:34
+    </div>                                      |  |
+                                                |  |
+    app.controller("x",["$scope",function(){    |  |
+        ...                                     |  |
+        $scope.a = 10;-----------------------------|
+        $scope.b = 34;--------------------------|
+        $scope.c = 43; //because "c" is not used in data-binding, so there is no watch instantiated for that.
+    }])
+
+- if the value gets changed, angular performs necessary updates
+  (propogation to DOM,UI update etc.)
+- Angular can execute our custom functions (watch listeners) on value changes.
+- Watchers are used heavily in data-binding
+    -Bindings are associated with Watches.
+    -Even internally in AngularJS Framework.
+
+WatcherCounts
+-------------
+- It is saying that we can use multiple watchers in a module.
+- It recomended to keep less than 2000 watchers.
+- If you will use more than 2000 watchers in a module the performace will reduce or might have screen freezed etc.
+- How to count the watchers:
+    > we can write our own scripts to count the watchers
+    > For Beginers like me (use chrome extenstions):
+        >> "Angular Watchers"
+        >> "Batarang" from Angular it self 
+
+- we can add our own "watch" manually using "$watch" function available through "$scope" object.
+    - Available at $rootScope as well
+    ex:
+        $scope.a = 1;
+        $scope.b = 2;
+        $scope.c = 3;
+        $scope.$watch('a',function(newValue,oldValue){
+            if(newValue != oldValue){
+                $scope.b = $scope.a*2;
+            }
+        });
+- Used when AngularJS doesnot consider scope variables for watching.
+    Ex: scope variables not being used in data-binding.
+- Watch Listener: a function which gets executed when a "watch" detects a value change.
+    as we see in the above example.
+    function(newValue,oldValue){
+            if(newValue != oldValue){
+                $scope.b = $scope.a*2;
+            }
+        }
+
+Types of Watches
+----------------
+- $watch - Reference watch
+    Ex:
+        $scope.o = {
+            a: 1,
+            b: 2,
+            c: 3
+        }
+        $scope.$watch('o',function(newValue,oldValue){
+            if(newValue != oldValue){
+                $scope.o.c = $scope.o.a+$scope.o.b
+            }
+        })
+
+        here $watch is used as a refernce object watcher if the value of a,b or c changes then this watch will not run.
+        It will run iff the refernce object of 'o' is being manipulated/assigned to another object then this watch will run.
+
+- $watch with 'true' - Equality watch/deep watch
+    Ex:
+        $scope.o = {
+            a: 1,
+            b: 2,
+            c: 3
+        }
+        $scope.$watch('o',function(newValue,oldValue){
+            if(newValue != oldValue){
+                $scope.o.c = $scope.o.a+$scope.o.b
+            }
+        },true);
+        - If any member of the object 'o' is being updated then this watch will be fired.
+        - If the object is a nested object also will also be fired for any chengs in the nested object also.
+
+- $watchGroup - Reference watch for multiple variables
+    Ex: $scope.a = 1;
+        $scope.b = 2;
+        $scope.c = 3;
+        $scope.$watchGroup(['a','b'],function(newValue,oldValue){
+            if(newValue != oldValue){
+                $scope.b = $scope.a*2;
+            }
+        });
+        - $watchGroup doesnot support 'true' or Equality watch.
+- $watchCollection - Collection watch
+    - it is basically used in arrays to watch 
+    ex: 
+        $scope.emps = [
+            {eId: 1001,eName: "Ranajit"},
+            {eId: 1002,eName: "Pradeep Sir"},
+            {eId: 1003,eName: "Shashi Sir"}
+        ]
+
+        $scope.$watchCollection("emps",function(newValue,oldValue){
+            ....
+        })
+        - This above watch will be fired when any changes related to collection level happend.
+        - If we push a new employee object to the existing collection then it will be fired.
+        ex:
+            $scope.emps.push({eId: 1004,eName: "Raja"})
+        - If we will try to update any member's variable with new value of this collection then the above
+          watchCollection is not going to fire. 
+        ex:
+            $scope.emps[1].eName = "Pradeep Kumar";
+    - If we really want both of this examples should work when we update anything collection level as well as any member object level,
+      to achieve this, we should use Equality/Deep watch then for the both cases the Equality watch will be fired.
+    Ex:
+        $scope.emps = [
+            {eId: 1001,eName: "Ranajit"},
+            {eId: 1002,eName: "Pradeep Sir"},
+            {eId: 1003,eName: "Shashi Sir"}
+        ]
+
+        $scope.$watch("emps",function(newValue,oldValue){
+            ....      <----Equality/Deep watch---fired--<--|
+        },true)                                            |
+                                                           |
+        $scope.emps.push({eId: 1004,eName: "Raja"})--->----|
+        $scope.emps[1].eName = "Pradeep Kumar";----->--->--|
+        
+
+ng-change
+---------
+- <input ng-model="a" ng-change="updateC()"> ng-change is working with ng-model behind the screen.
+
+
+        

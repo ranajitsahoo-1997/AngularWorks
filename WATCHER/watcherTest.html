@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="./watcherTest.js"></script>
+    <title>Document</title>
+  </head>
+  <body ng-app="empModule">
+    <h1>$watch</h1>
+    <hr />
+    <div ng-controller="watch">
+      <!-- * watcher 1 -->
+      <input ng-model="a" ng-change="updateC()" />
+      <!-- * watcher 2 -->
+      <div>{{b}}</div>
+    </div>
+    <hr />
+    <h1>$watchGroup</h1>
+    <hr />
+    <div ng-controller="watchgroup">
+      <!-- * watcher 1 -->
+      a = <input ng-model="a" /> b = <input ng-model="b" />
+
+      <!-- * watcher 2 -->
+      <div>c= {{c}}</div>
+    </div>
+    <hr />
+    <h1>$watch - Refernce object</h1>
+    <hr />
+    <div ng-controller="watch-refernce">
+      a = <input ng-model="o.a" /> b = <input ng-model="o.b" />
+
+      <div>c= {{o.c}}</div>
+    </div>
+    <hr />
+    <h1>$watch - Refernce object with Equality/deep watch</h1>
+    <hr />
+    <div ng-controller="watch-refernce-equality">
+      a = <input ng-model="o.a" /> b = <input ng-model="o.b" />
+
+      <div>c= {{o.c}}</div>
+    </div>
+    <hr />
+    <h1>$watchGroup - with object without Equality/deep watch</h1>
+    <hr />
+    <div ng-controller="watch-refernce-equality">
+      a = <input ng-model="o.a" /> b = <input ng-model="o.b" />
+
+      <div>c= {{o.c}}</div>
+    </div>
+    <hr />
+    <h1>$watchCollection with Employee List</h1>
+    <hr>
+    <div ng-controller="emp">
+      <h1>Employee Data</h1>
+      <table>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+        </tr>
+
+        <tr ng-repeat="e in emps">
+          <td>{{e.eId}}</td>
+          <td>{{e.eName}}</td>
+        </tr>
+      </table>
+      {{msg}} <br />
+      ID: <br />
+      <input type="text" ng-model="id" /><br />
+      Name <br />
+      <input type="text" ng-model="name" /> <br />
+      <button ng-click="add()">add</button>
+
+      Update ID: <br />
+      <input type="text" ng-model="uid" /><br />
+      Name <br />
+      <input type="text" ng-model="uname" /> <br />
+      <button ng-click="update()">update</button>
+    </div>
+    <hr />
+    <h1>$watch-equality/deep with Employee List</h1>
+    <hr>
+    <div ng-controller="emp">
+      <h1>Employee Data</h1>
+      <table>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+        </tr>
+
+        <tr ng-repeat="e in emps">
+          <td>{{e.eId}}</td>
+          <td>{{e.eName}}</td>
+        </tr>
+      </table>
+      {{msg}} <br />
+      ID: <br />
+      <input type="text" ng-model="id" /><br />
+      Name <br />
+      <input type="text" ng-model="name" /> <br />
+      <button ng-click="add()">add</button>
+
+      Update ID: <br />
+      <input type="text" ng-model="uid" /><br />
+      Name <br />
+      <input type="text" ng-model="uname" /> <br />
+      <button ng-click="update()">update</button>
+    </div>
+  </body>
+</html>
