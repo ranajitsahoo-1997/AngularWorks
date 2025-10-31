@@ -1,0 +1,84 @@
+Digest Cycle
+------------
+- Before we enter into the Digest Cycle, first we need to know 'watch-list'
+- We knew already 'watch' which is used to keep track of the $scope variable which are used for the data-bindings in markup/template.
+- In other words, markup/template which are used databindings for scope varibales, which is monitored by the watches for any values updation happens for the scope variable in angular js.
+- All the watches together are stored in Watch list.
+- Watch list is nothing but a simple reference of all list of watches maintained in a memory.
+- watch list is available in angular js frame work itself.
+- Every scope including rootscope will have its own watch list.
+
+Digest Process
+--------------
+- Digest process is nothing but It is reponsible to walk-through entire watch list for modification which
+  means there a angular js framework or angular js process which continuously monitor, the scope variables values are dirty (modified) or not which is already job of a watch of watch-lists.
+  The process which always monitor the entire watch lists, check the current values of scope variables with their previous values is called as dirty-checking and the pocess which is reponsible for that is called Digest Process.
+- If any modification happend for a scope variable, then it is the reponsiblity of the process which executes watch listener  for the respective scope.
+
+- It keeps note of all modification and notifies Angular JS framwork to update DOM.
+- In general,DOM markup gets executed/updated after digest process.
+- Digest process runs as part of Angular Context
+        **Angular Context
+        ---------------
+        - It is nothing but the runtime environment of Angualr JS framework.
+
+How it works?
+------------
+- We know The Digest Process will do dirty check for every watchlist and check any modification happens for any watch.
+- If not found any,then again it does dirty checks on changes made by previous cycle, watch listeners or the other watch changes.
+- atleast min 2 iterations will run for the process and maximum 10 iterations then it throws error after otherwise it update the UI/DOM.
+
+1st level watch updates and Digest Cycle
+----------------------------------------
+In this case, we have data binding for the scope variable a,b,c,d and their values 10,20,30and 40 repectively.
+for this scope we have a watch list and it contains watch-a, watch-b, watch-c and watch-d.
+So, User update the value watch-b 20 to 7 through some ng-click or ng-change.
+Now, Now digest process will perform dirty check for this watch list and check for a,b and found b is update to 7.
+The digest process will noted down that value for the watch-b and run the dirty check and again check is their any updation happend for other watch variables and found nothing and then 
+upadte the UI/DOM including updated value of scope variable b, which is noted down by this process.
+
+2nd level watch updates and Digest Cycle
+----------------------------------------
+In this scenario, we have data binding for the scope variable a,b,c,d and their values 10,20,30and 40 repectively.
+for this scope we have a watch list and it contains watch-a, watch-b, watch-c and watch-d.
+So, User update the value watch-c 30 to 7 through some ng-click or ng-change.
+Now, the Digest Process will perform the dirty check for this watch list and gone through watch-a, watch-b , watch-c and found therir is a modification occurs for watch-c and found a watch listener which 
+performs the updation for watch-b's value from 20 to twice of watch-c(i.e. 14). It will noted down the update happens for watch-c and change the watch-b value.
+Then again it runs the digest process and found there is a change for watch-b value 20 to 14, so it noted down that that value also and detects any changes hppens or not if not then it gainrun the digest process and update the UI/DOM.
+
+How the Digest Process related to Scope?
+-----------------------------------------
+- The diest process always starts with the rootScope.
+- After that it will check for the other scopes or nested scopes.
+- Because scope has its own watchList where all watches are listed for all scope variables.
+
+Who is responsible to tell the digest process to run?
+----------------------------------------------------
+- The followings are the responsiblers for to run the Direst process
+    1. DOM events (ng-click etc.)
+    2. Ajax with callbacks/api call ($http etc.)
+    3. Timers with callbacks($timeout etc.)
+    4. Browser location changes or refresh page
+    5. Mannua invocation ($apply,$digest etc)
+- So, We know in our Browser we have Event Queues like DOM events onClick etc and Timer events like setTimeOut etc.
+- we also know the Digest process is called by the Angular contextand the Angular Context is able to Do all its work for javascript, because the AngularJS framework its a javascipt framework.
+- So Angular context can not run without javascript.
+- The all I have mentioned above DOM events,AJAX with callback,Timer with callback and Manual invocation all are part of Angular Context and Browser/Native
+  which means for example we have ng-Click,$timeout and $http are the services available in Angular context and in Javascript or Browser we have the same features bu in different way like onClick,fetch and setTimeout respectively.
+- we can run those Browser fetures in our Angular JS but it will invoke the digest process, so later we will face issues.
+- To overcome from those problems Angular Context features are used as the bridges/mediator/inteface between the Browser and Angular js framework which helps to invoke the Digest process so that our data is being updated.
+- After the digest process is being done then it updates the UI/DOM 
+
+- So all the Angular Context features immitates the Browser features
+
+- The browser always waits for the user's interaction if user clicks on any button it tells the angular Context that user click on that button angular context will run the ng-click for that button.
+ for the ng-click Digest process will run the rootscope and it check the other scopes also and for that that click is there any changes happens for the scope variables then it called the respective watch ffrom the respective watchlist and done the updation.
+ After data is being noted for the 1st iteration digest will again runthe dirty checking or 2nd iteration for all the watchlist or scopes if all are being updated thenit updates the UI/DOM.
+ Then again it went for the DOM Render process of the Browser and wait for any events made by the users. The whole process is like loop and this loop is known as Event loop.
+
+**Note**
+-Any changes in Scope variable outside Angular context wi;; affect the UI unless digest process is triggered in.
+-DOM events which are not angular related DO NOT trigger DIgest Process
+    ex: onClick does not trigger digest process but ng-click does.
+
+

@@ -1,0 +1,19 @@
+$apply and $digest
+----------------------------------
+> Both services are used to trigger digest process manually
+> Mainly used when the scope variables are modified out of "Angular COntext"
+  and /or UI needs to be refresh its data-bindings.
+> Behind the scenes,$apply calls $digest
+> Usage; $scope.$apply, $scope.$digest
+
+$apply
+------
+- The Digest process always starts with "$rootscope"
+- After evaluating RootScope, the process continues through all child scopes and nested scopes one after another.
+- Behind the scenes ng-click,$timeout,$http(ajax) etc. operations are calling $apply.
+
+$digest
+--------
+- It always trigger the current scope and its child/nested scopes only.
+- It doesnot starts with the root scope or parentscope
+- it could be called from rootscope also equivalent to $apply
