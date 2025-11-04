@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inherited Scope</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+  </head>
+  <body ng-app="app">
+    <div id="div1" ng-controller="sample">
+      Sample1: a={{a}},b={{b}} <br />
+      a = <input type="text" ng-model="a" /> <br>
+      sample1 : p = {{o.p}},q = {{o.q}} <br>
+      p = <input type="text" ng-model="o.p" /> <br>
+
+      <hr>
+      <div id="div2" ng-controller="sample2">
+         Sample2: a={{a}},b={{b}} <br />
+        Sample2: c={{c}},d={{d}} <br />
+        Sample2: parent a = {{$parent.a}} <br>
+        a = <input type="text" ng-model="a" /><br><br>
+        sample2 : p = {{o.p}},q = {{o.q}} <br>
+      p = <input type="text" ng-model="o.p" /> <br>
+
+      </div>
+    </div>
+  </body>
+</html>

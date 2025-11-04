@@ -1,0 +1,24 @@
+Isolated Scope
+--------------
+- Directives which creates their own scope completely separated from parent scope is called Isolated Scope.
+- While decalring directives if scope attribute is false is called shared scope, if it is true then it has its own scope but inherited but if scope has assigned to {} empty object it is called isolated scope.
+- No inheritance or relation from parent scope.
+- Modifications to isolated scope will have no affect on parent scope and viceversa.
+- with scope parameter we can communicate to any of the parent scope.
+
+scope parameters(@,=,&)
+-----------------------
+- @
+    > A STRING value to be passed to directive scope.
+    > from parent to directive scope no vice-versa will happend.
+    > Cloud be an interpolated string (e.g. {{}})
+- =
+    > A OBJECT to be passed to directive scope
+    > Two way binding (between parent and directive scope)
+- &
+    > FUNCTION to be accesible from directive scope.
+    > Directive can execute the functionpassed to it.
+
+$parent
+-------
+ **Can be used to access parent scope members(try to avoid).

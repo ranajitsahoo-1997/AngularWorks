@@ -1,0 +1,14 @@
+Shared Scope
+------------
+- The directive which uses/shares the same controller scope is caled as shared Scope.
+- Example:-
+    <body ng-app="app">                         |scope|
+    <div id="div1" ng-controller="sample">-->---|a=10 |
+    a={{a}},b={{b}}                             |b=20 |
+    <div message></div> ---<---->------------<->|     |
+    
+    </div>
+  </body>
+
+- if The scope changes,it affects all the elements (including controller)
+- The scope modification can be happen from controller element or child/nested

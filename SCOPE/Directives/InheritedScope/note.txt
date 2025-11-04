@@ -1,0 +1,27 @@
+Inherited/Child Scope of Controllers
+------------------------------------
+- When we have two controllers and one is inside another controller i.e let controller a
+  is the parent and controller B is the child so that controller A's scope varibales are available in controller B, it is called Inherited Scope or controller B is the child scope who is inherited from A.
+- All members of parent scope are accessible from child scope.
+- Child Scope can have its own members (invisble to parent)
+- A child scope can override the members of parent members,by re-defing their own.
+- Parent scope members are still accessible through '$parent'
+
+
+Directives
+----------
+Directive have the scope attributes which is by default false but when we make it true a new scope varibale will be created for the directive.
+- So directive can have its own scope members as well as parent scope members.
+Example:
+    app.directive("message", function () {
+  return {
+    templateUrl: "info-msg.html",
+    scope: true,
+  };
+});
+
+<div ng-include src="'id1info-msg.html'"></div> 
+<div message ng-repeat="i in [1,2,3,4]"></div>
+The above both ng-repeat and ng-include by default create their own scope and inherited fromparent scope
+**However, we use directive without mentioning scope it is inherited from parent scope (uses shared scope) as doest not create it own scope, if you want the scope specifically you should add scope=true.
+
