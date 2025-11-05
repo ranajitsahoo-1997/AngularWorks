@@ -1,0 +1,202 @@
+Transclusion
+------------
+It is nothing but Directive and template in general
+Ex-
+    <div ng-controller="sample">
+        Some message from controller
+        <div message></div>---|
+    </div>                    |-----------
+                                         |
+    app.directive("message",function()<--|
+    {
+        return {
+            templateUrl: "abc.html"-------|
+        }                                 |
+    })                                    |
+                                          |
+    <div>                                 |
+    This is from message template<--------|
+    </div>
+
+overall-
+<div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is from message template
+        </div>
+</div>
+
+
+Directive,Content & template
+---------------------------
+Ex-
+    <div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is the inner msg--->Content(!)
+        </div>----------------|
+    </div>                    |-----------
+                                         |
+    app.directive("message",function()<--|
+    {
+        return {
+            templateUrl: "abc.html"-------|
+        }                                 |
+    })                                    |
+                                          |
+    <div>                                 |
+    This is from message template<--------|
+    </div>
+
+overall-
+<div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is from message template
+        </div>
+</div>
+
+Transclusion
+------------
+Ex-
+    <div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is the inner msg--->Content(added below)
+        </div>----------------|
+    </div>                    |-----------
+                                         |
+    app.directive("message",function()<--|
+    {
+        return {
+            transclude: true,
+            templateUrl: "abc.html",------|
+        }                                 |
+    })                                    |
+                                          |
+    <div>                                 |
+    This is from message template<--------|
+    <div ng-transclude></div>
+    </div>
+
+overall-
+<div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is from message template
+            <div>This is the inner msg</div>
+        </div>
+</div>
+
+
+Clone Linking function
+----------------------
+1. transclude() - with no callback function
+    - Used when "ng-transclude" is not an option
+        >> and to have more control on when the transclusion should happen
+    - Creates (jQuery DOM) instance of to be trancluded content.
+        >> if not created (at least once) earlier it will create the instance
+        >>*** Reuse/applies the existing instance, once created.
+    - It also creates a Transclusion Scope.
+
+2. transclude(cb) - with callback function
+    - It is used when "ng-transclude" is not an option.
+        >> and to have more control on when the transclusion should happen
+    - Creates (jQuery DOM) instance of to be trancluded content.
+        >> if not created (at least once) earlier it will create the instance.
+        >>*** if it created already earlier, it clones it and applies.
+    - It creates Transclusion scope for every instance/clone.
+    - it is also called as clone linking (attach) function
+
+Transclusion Scope
+------------------
+
+    <div ng-controller="sample">
+        Some message from controller
+        <div message>
+            This is the inner msg--->Content(added below)
+        </div>----------------|
+    </div>                    |-----------
+                                         |
+    app.directive("message",function()<--|
+    {
+        return {
+            transclude: true,
+            templateUrl: "abc.html",------|
+        }                                 |
+    })                                    |
+                                          |
+    <div>                                 |
+    This is from message template<--------|
+    <div ng-transclude></div>
+    </div>
+
+overall-
+<div ng-controller="sample">------------------------> controller scope starts
+        Some message from controller
+        <div message>-------------------------------> directive scope start
+            This is from message template
+            <div>-----------------------------------> Transclusion Scope start
+            This is the inner msg
+            </div>----------------------------------> Transclusion Scope ends
+        </div>--------------------------------------> directive scope end
+</div>----------------------------------------------> controller scope end
+
+- A Scope (object) gets created automatically, when some content is transcluded or cloned from existing transcluded content.
+
+How are the scopes related Transclusion, Directive shared scope and controller Scope
+------------------------------------------------------------------------------------
+
+<div ng-controller="sample">-------------> controller scope starts (Scope of Controller)
+        Some message from controller
+        <div message>--------------------> directive scope start (Scope of Controller) becuase i have mentioned shared scope, it wont create it's own it will use the controller's scope
+            This is from message template
+            <div>------------------------> Transclusion Scope start (Scope of Transclusion and it inherits directly the directive scope)
+            This is the inner msg
+            </div>-----------------------> Transclusion Scope ends
+        </div>---------------------------> directive scope end
+</div>
+- If the controller scope has two variables a and b are 10 and 20 respectively, then those scope variables are available to the directive shared scope.
+- Though Transclusion has it's own scope but it inherits the directive scope, those scope variables are also available for it as well as [$parent] which refered to the current directives parent.
+
+How are the scopes related Transclusion, Directive inherited scope and controller Scope
+------------------------------------------------------------------------------------
+
+<div ng-controller="sample">-------------> controller scope starts (Scope of Controller)
+        Some message from controller
+        <div message>--------------------> directive scope start (Scope of Directive and inherits all members of controller scope) becuase i have mentioned inherited scope, it creates it's own it will use the controller's scope members
+            This is from message template
+            <div>------------------------> Transclusion Scope start (Scope of Transclusion and it inherits directly the parent of directive scope)
+            This is the inner msg
+            </div>-----------------------> Transclusion Scope ends
+        </div>---------------------------> directive scope end
+</div>
+- If the controller scope has two variables a and b are 10 and 20 respectively, then those scope variables are available to the directive inherited scope but if directive scope has c is a meber of value 30 that is not available to the controller scope.
+- Though Transclusion has it's own scope but it inherits the directive scope, those scope variables are also available for it as well as [$parent] which refered to the directive scope not to its parent.
+- If Transclusion Scope wants to use directive scope members the it need to call like 'scope.$parent.memberName'.
+- Transclusion Scope can have its own members also.
+
+How are the scopes related Transclusion, Directive isolated scope and controller Scope
+------------------------------------------------------------------------------------
+
+<div ng-controller="sample">-------------> controller scope starts (Scope of Controller)
+        Some message from controller
+        <div message>--------------------> directive scope start (Scope of Directive ) 
+            This is from message template
+            <div>------------------------> Transclusion Scope start (Scope of Transclusion and it inherits directly the parent of directive scope)
+            This is the inner msg
+            </div>-----------------------> Transclusion Scope ends
+        </div>---------------------------> directive scope end
+</div>
+- If the controller scope has two variables a and b are 10 and 20 respectively, then those scope variables are not available  directly to the directive isolated scope unless we are using [$parent] but if directive scope has c is a member of value 30 that is not available to the controller scope.
+- Though Transclusion has it's own scope but it inherits the directive scope, those scope variables are also available for it as well as [$parent] which refered to the directive scope not to its parent.
+- If Transclusion Scope wants to use directive scope members the it need to call like 'scope.$parent.memberName'.
+- Transclusion Scope can have its own members also.
+
+Transclusion Scope - Custom Scope/data
+--------------------------------------
+- Transclusion scope creation doesn't need to be automatic
+    >> we cann Pass our own "scope" instance.
+- Custom Scope usually set using "Clone Linking function"
+    >> which opens doors for our own data
+    >> Modify the transclusion scope in whatever the way we need.

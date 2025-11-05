@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transclusion Scope</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script type="text/javascript" src="./TS.js"></script>
+  </head>
+  <body ng-app="app">
+    <strong>Shared scope</strong>
+    <div id="div1" ng-controller="sample">
+        This is msg from controller x = {{a.x}}, y={{b.y}}
+        <hr>
+        
+        <div message1>
+          this is transcluded content x={{a.x}}, y={{b.y}}
+        </div>
+        
+    </div>
+    <br>
+    <strong>Inherited scope</strong>
+    <div id="div1" ng-controller="sample">
+        This is msg from controller x = {{a.x}}, y={{b.y}}
+        <hr>
+        
+        <div message2>
+          this is transcluded content x={{a.x}}, y={{$parent.b.y}}
+        </div>
+        
+    </div>
+    <br>
+    <strong>Isolated scope</strong>
+    <div id="div1" ng-controller="sample">
+        This is msg from controller x = {{a.x}}, y={{b.y}}
+        <hr>
+        
+        <div message3>
+          this is transcluded content x={{a.x}}, y={{$parent.b.y}}
+        </div>
+        
+    </div>
+    <br>
+     <strong>Manual Transcluded scope for custom Data</strong>
+    <div id="div1" ng-controller="sample">
+        This is msg from controller x = {{a.x}}, y={{b.y}}
+        <hr>
+        
+        <div message4>
+          this is transcluded content x={{a.x}}, y={{b.y}}
+        </div>
+        
+    </div>
+    <br>
+     <strong>CustomTransclusion Scope for Custom Data</strong>
+    <div id="div1" ng-controller="sample">
+        This is msg from controller x = {{a.x}}, y={{b.y}}
+        <hr>
+        
+        <div message5>
+          this is transcluded content x={{a.x}}, y={{b.y}}
+        </div>
+        
+    </div>
+  </body>
+</html>
