@@ -1,0 +1,123 @@
+Routing
+-------
+
+-It is nothing but the dynamic way to fetch some content from a location
+- Generally it does three thing
+    >> it goes to a location
+    >> Gets a new content
+    >> it injects into current (page's HTML/DOM)
+
+- it is mainly used it Single Page Application SPAs
+    - it goes to various part of logical division of app means navbar,sidebar,body
+    - It is loading views individually/independently.
+**Note: Routing: Available at server/Client
+
+How do we implepent
+-------------------
+- Client-Side Routing
+  -------------------
+    - we can achieve Client side Routing in several ways
+        >>ngRoute
+        >>UI-Route 
+        >>etc.
+- Steps (For ngRoute):
+  --------------------
+    > Include ngRoute module
+        >> angular-route.js (it always made available afterangular.js)
+    > Use ngRoute as module dependency
+        Example: 
+            var app = angular.module('app',['ngRoute']);
+    > Use $routeProvider to configure routes
+        >> Routing URLS(location)
+        >> Views (content)
+        >> Controller to be associated with Views
+        >> etc.
+        Example:
+            app.config(['$routeProvider',function($routeProvider){
+                $routeProvider.when('/first_msg',{
+                    templateUrl: 'msg1.htmll',
+                    Controller: 'message1'
+                })
+            }])
+    > Declare "ng-view"to hold or inject content or view
+        Example:
+            <div ng-view></div>
+
+
+day-2
+$route service
+--------------
+- $route is responsible for cached reload/refresh, list of all routes, reload current route with new params value
+  keep track of routes requests and access $scope object of current route.
+
+- It has two properties
+    1. current
+        >> params
+        >> scope
+        >> etc
+    2. routes
+- it has couple of methods of $route
+    1. reload
+    2. updateParams
+- and events also.
+    1. $routeChangeStart
+    2. $routeChangeSuccess
+    3. $routeChangeError
+    4. $routeUpdate
+
+day-3
+Routing & Resolve
+-----------------
+In General way of Routing:
+    Redirect To new Route
+            |
+            |$locationChangeStart
+            |$routeChangeStart
+    change Url
+            |
+            |$locationChangeSuccess
+    jump/load route
+            |
+            |$routeChangeSuccess
+    Execute Controller/associate Scope
+            |
+            |
+        Do AJAX operations<----Take the data from the WebService 
+        |
+        |_Bind AJAX results to View through scope
+
+- In  the General way of Routing we are getting the after the routeChangeSuccess and when controller is ready
+
+In Resolve way of Routing:
+    Redirect To new Route
+            |
+            |$locationChangeStart
+            |$routeChangeStart
+    change Url
+            |
+            |$locationChangeSuccess
+      Execute 'Resolve'-->------------------------->-------------|
+            |                                                    |
+            |                                                    |
+     Do AJAX Operation<----Take the data from the WebService     |
+            |                                                    |Resolved Result from WebService through Resolve
+            |                                                    |
+    jump/load route                                              |
+            |                                                    |
+            |$routeChangeSuccess                                 |
+    Execute Controller/associate Scope<----------<---------------|
+            |
+            |
+Bind Resolved results to View through scope
+
+- But here after the change url when $locationChangeSuccess is ready then it executes Resolves and do ajax operations after that and the ng-module is maintaining the Resolved Result data which is fetched by the AJAX operation till controller being updated.
+
+conclusion will be:
+without Resolving
+    -jump to the route first
+    - get the data later
+with Resolving
+    - get Data first
+    - Then jump to route and pass data
+
+when you are running day3/test/test3.html before run day2-v2/expressAJAX/ then run npm start which will start localhost:8000

@@ -1,0 +1,10 @@
+<div class="mt-3">
+  <p>a = <input type="text" ng-model="a" /><br /></p>
+  <p>b = <input type="text" ng-model="b" /><br /></p>
+  <button ng-click="doAdd()">Add</button>
+  <button ng-click="doMul()"><span ng-show="isLoading==true">Loading..</span><span ng-hide="isLoading==true">Multiply</span></button><br>
+  <div ng-show="error" style="color: red;font-weight: bold;">
+    {{error}}
+  </div>
+</div>
+
