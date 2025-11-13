@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <script src="./test-d2.js"></script>
+    <title>UI ROUTE</title>
+  </head>
+  <body ng-app="app">
+    <header class="bg-dark p-3"><a ui-sref="root()">Home </a></header>
+    <div class="row">
+      <div class="col-sm-5 p-3 bg-dark">
+        <ul>
+          <li><a href="#/first-msg/30/220">firstMessage</a></li>
+          <li><a href="#/second-msg/3330/22980">msg2</a></li>
+          <li><a href="#/third-msg/">msg3 no params</a></li>
+          <li><a href="#/third-msg/10">msg3 one params</a></li>
+          <li><a href="#/forth-msg/10/30">msg4</a></li>
+          <br />
+          <li><a href="#/fifth-msg/90/80">msg5</a></li>
+          <li><a href="#/fifth-msg//">msg5 no params</a></li>
+          <li><a href="#/fifth-msg/5/">msg5 one params</a></li>
+          <br />
+          <li><a href="#/six-msg/">msg6 no params</a></li>
+          <li><a href="#/six-msg/5">msg6 one params</a></li>
+          <br>
+          <li><a href="#/seven-msg/-/30">msg7 b params a squash</a></li>
+          <li><a href="#/seven-msg/45/~">msg7 a params b squash</a></li>
+          <li><a href="#/seven-msg/-/~">msg7 both squash</a></li>
+          <br>
+          <li><a href="#/eighth-msg?a=10&b=20">msg8 both params</a></li>
+          <li><a href="#/eighth-msg?a=10">msg8 one params</a></li>
+          <li><a href="#/eighth-msg">msg8 no params</a></li>
+<br>
+          <li><a href="#/ninth-msg?a=10&b=20">msg9 both params</a></li>
+          <li><a href="#/ninth-msg?a=10">msg9 one params</a></li>
+          <li><a href="#/ninth-msg">msg9 no params</a></li>
+          <li><a href="#/ninth-msg?a=10&b=20&b=30&b=40">msg9 multi b value</a></li>
+
+
+
+          <br />
+          <li><a ui-sref="firstMessage({a: 66,b:54})">firstMessage</a></li>
+          <li><a ui-sref="secondMessage({a: 6996,b:2354})">msg2</a></li>
+          <br />
+          <li><a ui-sref="thirdMessage(null)">msg3 no params</a></li>
+          <li><a ui-sref="thirdMessage({a:76,b:null})">msg3 one params</a></li>
+          <br />
+          <li><a ui-sref="forthMessage({a:99,b:100})">msg4 both param</a></li>
+          <li><a ui-sref="forthMessage({a:99,b:null})">msg4-a param</a></li>
+          <li><a ui-sref="forthMessage({a:null,b:100})">msg4-b param</a></li>
+          <li><a ui-sref="forthMessage({a:null,b:null})">msg4-no param</a></li>
+          <br />
+          <br />
+          <li><a ui-sref="fifthMessage({a:199,b:200})">msg5 both param</a></li>
+          <li><a ui-sref="fifthMessage({a:199,b:null})">msg5-a param </a></li>
+          <li><a ui-sref="fifthMessage({a:null,b:200})">msg5-b param</a></li>
+          <li><a ui-sref="fifthMessage({a:null,b:null})">msg5-no param</a></li>
+          <br />
+          <li><a ui-sref="eighthMessage({a:23,b:32})">msg8-two param</a></li>
+          <li><a ui-sref="eighthMessage({a:23,b:null})">msg8-one param</a></li>
+          <li><a ui-sref="eighthMessage({a:null,b:null})">msg8-no param</a></li>
+<br />
+          <li><a ui-sref="ninthMessage({a:23,b:32})">msg9-two param</a></li>
+          <li><a ui-sref="ninthMessage({a:23,b:null})">msg9-one param</a></li>
+          <li><a ui-sref="ninthMessage({a:null,b:null})">msg9-no param</a></li>
+          <li><a ui-sref="ninthMessage({a:23,b:[10,20,30,40]})">msg9-multi b value</a></li>
+
+
+          <br />
+          <li><a href="#/c/first-msg/30/220">CfirstMessage</a></li>
+          <li>
+            <a ui-sref="CfirstMessage({a: 6546,b:5344})">CfirstMessage</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-7">
+        <div ui-view></div>
+      </div>
+    </div>
+  </body>
+</html>

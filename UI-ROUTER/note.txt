@@ -1,0 +1,91 @@
+UI-ROUTER
+----------
+
+What is routing?
+- it actually does three things in genral
+    - it goes to a location (hashed URL)
+    - Get new Content (View/HTML)
+    - Injects into current (page's) HTML/DOM
+- It is mainly used for SPAs (Single Page Application)
+    - it has various parts of views like header sidebar and body etc
+    - loading views individually/ independently
+NOTE** Routing is available at server/clinet
+
+What is UI-routing?
+-------------------
+- Client-Side Routing
+    There are several ways to achieve this 
+        - ngRoute
+        - UI-Router etc.
+- UI-Router
+    It is built by Angular UI team
+    - It fully replaces ngRoute and more powerful than ng-Router
+    - It developed around the concept of 'states'
+      as opposed to routes
+    states(in ui-router)
+    ------
+    - A bit more than routes
+    - More comprehensive navigation criteria
+    - Holds routes and their behaviors
+    - it describe how UI would look like
+        when a navigation occurs
+        Or when a route is triggered
+        Or when we switch to different route/state
+    - It will be identified by its own (unique) name
+        possible to navigate through name (instead of route)
+    - Configured using $stateProvider
+
+    -Top Advantages:
+    > Multiple views
+        >> side-by-side(sibling)
+        >> nested
+    - Nested States
+    - Availabilities of Controller/Scope between nested states/views.
+Working with ui-router
+----------------------
+- Steps for ui-router
+    > include ui-router module
+        >> angular-ui-router.js after angular.js
+    > use 'ui-router' as module dependency
+        var app = angular.module('app',['ui-router']);
+    > Use $stateProvider to configure states (and routes)
+        - States
+        - Routing URLS (location)
+        - Views (content)
+        - Controller to be associated with views
+        - Nested states/Viewsetc.
+        Example:
+            app.config(['$stateProvider',function($stateProvider){
+                $stateProvider   |------------------------name of the State
+                .state('FirstMessage',{
+                    url: '/first-message',
+                    templateURL: 'msg1.html',
+                    controller: 'msg1'
+                })
+            }])
+- Declare "ui-view" to hold (or inject) content
+    it can have multiple instance
+    and even nested
+
+day2
+----
+How to send UI-Router Parameters
+- Using Routing URL and "ui-sref"
+- Using "ui-sref" (but not available through URL)
+- Using Query Parameters
+
+UI-Router Parameters: features Supported
+- Optional Parameters
+- Default values
+- Regular Expression Support (regex)
+- 'ui-sref' Support
+- Array support
+- Squashing
+    - How to represent default values in URL,when they are same as the current value.
+
+What is $stateParams
+- $stateParams
+    - It comes with ui-router module
+    - Easiest waaay to access current ui-router parameter values
+    - Used mainly incontroller/scope/service related Code
+    - Needs to be injected
